@@ -5,25 +5,32 @@ local event = require("event")
 local gpu = component.gpu
 local modem = component.modem
 
-recive_port = 1100
-server_port = 1000
+local recive_port = 1100
+local server_port = 1000
 
 modem.open(recive_port)
 
-server_address = "1047eb80-972f-4f7c--b6e5-47957a29b6a4"
+local server_address = "1047eb80-972f-4f7c--b6e5-47957a29b6a4"
 
-arg1 = nil
-arg2 = nil
-arg3 = nil
-arg4 = nil
+local arg1 = nil
+local arg2 = nil
+local arg3 = nil
+local arg4 = nil
+local err
 
-message = ""
+local message = nil
 
 while true do
     modem.send(server_address, server_port, modem.address, recive_port)
-    err = event.pull(15, "modem_message", arg1, arg2, arg3, arg4, message)
+
+    err, arg1, arg2, arg3, arg4, message = event.pull(15, "modem_message")
+    print(arg1)
+    print(arg2)
+    print(arg3)
+    print(arg4)
     if err == nil then
         print("Message timeout")
+        os.exit()
     end
     message = serialization.unserialize(message)
     print(message["eu_stored"])

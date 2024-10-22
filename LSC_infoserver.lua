@@ -10,7 +10,7 @@ local modem = component.modem
 
 -- Settings
 
-LSC_address = nil
+local LSC_address = nil
 local broadcast_port = 1000
 
 -- End settings
@@ -30,10 +30,10 @@ LSC = component.proxy(LSC_address)
 --  getAverageElectricInput()
 
 
-totalCapacity = LSC.getEUCapacity()
+local totalCapacity = LSC.getEUCapacity()
 
 
-message = {}
+local message = {}
 
 message["capacity"] = LSC.getEUCapacity()
 message["capacityString"] = LSC.getEUCapacityString()
