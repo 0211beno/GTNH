@@ -18,7 +18,7 @@ local broadcast_port = 1000
 
 if LSC_address == nil then -- if LSC address in undefined, pull a gt_machine. If more gt machines are connected, then the progam will probably not work.
     LSC_address = component.list("gt_machine")
-
+end
 
 LSC = component.proxy(LSC_address)
 -- Functions
@@ -45,6 +45,8 @@ while true do
     message["eu_stored"] = LSC.getEUStored()
     message["output_Average"] = LSC.getEUOutputAverage()
     message["input_Average"] = LSC.getEUInputAverage()
-    if modem.broadcast(broadcast_port, serialization.serialize(message))
+    if modem.broadcast(broadcast_port, serialization.serialize(message)) != true then
+        print("Error sending message")
+    end
     os.sleep(5)
 end
