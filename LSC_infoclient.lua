@@ -12,12 +12,16 @@ modem.open(recive_port)
 
 server_address = ""
 
-void = nil
+arg1 = nil
+arg2 = nil
+arg3 = nil
+arg4 = nil
+
 message = ""
 
 while true do
     modem.send(server_address, server_port, modem.address, recive_port)
-    err = event.pull(15, "modem_message", void, void, void, void, message)
+    err = event.pull(15, "modem_message", arg1, arg2, arg3, arg4, message)
     if err == nil then
         print("Message timeout")
     end
