@@ -6,6 +6,7 @@ local event = require("event")
 
 local gpu = component.gpu
 local modem = component.modem
+local server_port = 1000
 
 
 function sendMessage(event_name, localAddress, remoteAddress, port, distance, send_address, send_port)
@@ -13,7 +14,7 @@ function sendMessage(event_name, localAddress, remoteAddress, port, distance, se
     -- Settings
 
     local LSC_address = nil
-    local server_port = 1000
+    
 
     -- End settings
 
