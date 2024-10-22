@@ -23,7 +23,7 @@ local message = nil
 while true do
     modem.send(server_address, server_port, modem.address, recive_port)
 
-    err, arg1, arg2, arg3, arg4, message = event.pull(3, "modem_message")
+    err, arg1, arg2, arg3, arg4, message = event.pull(3)
     print(arg1)
     print(arg2)
     print(arg3)

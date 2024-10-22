@@ -6,49 +6,44 @@ local event = require("event")
 
 local gpu = component.gpu
 local modem = component.modem
-local server_port = 1000
 
 
-function sendMessage(event_name, localAddress, remoteAddress, port, distance, send_address, send_port)
-        
-    -- Settings
+-- Settings
 
-    local LSC_address = nil
-    
+LSC_address = nil
+local broadcast_port = 1000
 
-    -- End settings
+-- End settings
 
-    if LSC_address == nil then -- if LSC address in undefined, pull a gt_machine. If more gt machines are connected, then the progam will probably not work.
-        LSC_address = component.list("gt_machine")()
-    end
+if LSC_address == nil then -- if LSC address in undefined, pull a gt_machine. If more gt machines are connected, then the progam will probably not work.
+    LSC_address = component.list("gt_machine")()
+end
 
-    LSC = component.proxy(LSC_address)
-    -- Functions
-    --  getEUCapacity()
-    --  getEUCapacityString() (String output)
-    --  getEUStored()
-    --  getEUOutputAverage()
-    --  getEUInputAverage()
-    --  getAverageElectricOutput()
-    --  getAverageElectricInput()
+LSC = component.proxy(LSC_address)
+-- Functions
+--  getEUCapacity()
+--  getEUCapacityString() (String output)
+--  getEUStored()
+--  getEUOutputAverage()
+--  getEUInputAverage()
+--  getAverageElectricOutput()
+--  getAverageElectricInput()
 
 
-    local totalCapacity = LSC.getEUCapacity()
+totalCapacity = LSC.getEUCapacity()
 
 
-    local message = {}
+message = {}
 
-    message["capacity"] = LSC.getEUCapacity()
-    message["capacityString"] = LSC.getEUCapacityString()
+message["capacity"] = LSC.getEUCapacity()
+message["capacityString"] = LSC.getEUCapacityString()
 
+
+function sendMessage(_, _, _, _, _, send_address, send_port)
+    print("Sending LSC response")
     message["eu_stored"] = LSC.getEUStored()
     message["output_Average"] = LSC.getEUOutputAverage()
     message["input_Average"] = LSC.getEUInputAverage()
-    print(event_name)
-    print(localAddress)
-    print(remoteAddress)
-    print(port)
-    print(distance)
     print(send_address)
     print(send_port)
 
@@ -56,7 +51,7 @@ function sendMessage(event_name, localAddress, remoteAddress, port, distance, se
     modem.send(send_address, send_port, serialization.serialize(message))
 end
 
-modem.open(server_port)
+modem.open(broadcast_port)
 event.listen("modem_message", sendMessage)
 
 
