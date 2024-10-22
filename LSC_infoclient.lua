@@ -10,7 +10,7 @@ local server_port = 1000
 
 modem.open(recive_port)
 
-local server_address = "1047eb80-972f-4f7c--b6e5-47957a29b6a4"
+local server_address = "1047eb80-972f-4f7c-b6e5-47957a29b6a4"
 
 local arg1 = nil
 local arg2 = nil
@@ -23,20 +23,15 @@ local message = nil
 while true do
     modem.send(server_address, server_port, modem.address, recive_port)
 
-    err, arg1, arg2, arg3, arg4, message = event.pull(3)
-    print(arg1)
-    print(arg2)
-    print(arg3)
-    print(arg4)
+    err, _, _ ,_ ,_ , message = event.pull(3, "modem_message")
     if err == nil then
         print("Message timeout")
         os.exit()
     end
     message = serialization.unserialize(message)
-    print(message["eu_stored"])
-    print(message["output_Average"])
-    print(message["input_Average"])
-    print(message["capacity"])
-    os.wait(5)
-
+    print(string.format("Stored EU: %i", message["eu_stored"]))
+    print(string.format("Average Output EU: %i", message["output_Average"]))
+    print(string.format("Average Input EU: %i", message["input_Average"]))
+    print(string.format("Total Capacity EU: %i", message["capacity"]))
+    os.sleep(5)
 end

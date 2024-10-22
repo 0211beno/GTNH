@@ -44,10 +44,6 @@ function sendMessage(_, _, _, _, _, send_address, send_port)
     message["eu_stored"] = LSC.getEUStored()
     message["output_Average"] = LSC.getEUOutputAverage()
     message["input_Average"] = LSC.getEUInputAverage()
-    print(send_address)
-    print(send_port)
-
-
     modem.send(send_address, send_port, serialization.serialize(message))
 end
 
