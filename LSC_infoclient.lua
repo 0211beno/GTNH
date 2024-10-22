@@ -28,6 +28,8 @@ function draw_screen(totalCap_EU, stored_EU, average_output, average_input)
     gpu.fill(10, 15, 60*fullFrac, 5, "|") -- Draws filled part of power bar
     gpu.setForeground(colors.white, true)
 
+    gpu.fill(10,3, 60, 13, " ")
+
     gpu.set(10, 3, string.format("Percentage full:  %.1f", fullFrac))
     gpu.set(10, 5, string.format("Total Capacity:   %i", stored_EU))
     gpu.set(10, 6, string.format("Stored Capacity:  %i", totalCap_EU))
