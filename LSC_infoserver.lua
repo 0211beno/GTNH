@@ -43,6 +43,15 @@ function sendMessage(event_name, localAddress, remoteAddress, port, distance, se
     message["eu_stored"] = LSC.getEUStored()
     message["output_Average"] = LSC.getEUOutputAverage()
     message["input_Average"] = LSC.getEUInputAverage()
+    print(event_name)
+    print(localAddress)
+    print(remoteAddress)
+    print(port)
+    print(distance)
+    print(send_address)
+    print(send_port)
+
+
     modem.send(send_address, send_port, serialization.serialize(message))
 end
 

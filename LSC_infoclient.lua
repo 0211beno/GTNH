@@ -1,5 +1,6 @@
 local serialization = require("serialization")
 local component = require("component")
+local event = require("event")
 
 local gpu = component.gpu
 local modem = component.modem
