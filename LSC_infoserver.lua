@@ -47,3 +47,4 @@ while true do
     message["input_Average"] = LSC.getEUInputAverage()
     if modem.broadcast(broadcast_port, serialization.serialize(message))
     os.sleep(5)
+end
