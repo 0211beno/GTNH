@@ -41,11 +41,12 @@ message["capacityString"] = LSC.getEUCapacityString()
 
 
 -- runtime
+
 while true do
     message["eu_stored"] = LSC.getEUStored()
     message["output_Average"] = LSC.getEUOutputAverage()
     message["input_Average"] = LSC.getEUInputAverage()
-    if modem.broadcast(broadcast_port, serialization.serialize(message)) != true then
+    if modem.broadcast(broadcast_port, serialization.serialize(message)) ~= true then
         print("Error sending message")
     end
     os.sleep(5)
