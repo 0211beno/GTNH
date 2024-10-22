@@ -10,7 +10,7 @@ server_port = 1000
 
 modem.open(recive_port)
 
-server_address = ""
+server_address = "1047eb80-972f-4f7c--b6e5-47957a29b6a4"
 
 arg1 = nil
 arg2 = nil
