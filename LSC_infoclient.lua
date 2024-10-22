@@ -29,14 +29,19 @@ function draw_screen(totalCap_EU, stored_EU, average_output, average_input)
     gpu.setForeground(colors.white, true)
 
     gpu.set(10, 3, string.format("Percentage full:  %.1f", fullFrac))
-    gpu.set(10, 3, string.format("Total Capacity:   %i", stored_EU))
-    gpu.set(10, 4, string.format("Stored Capacity:  %i", totalCap_EU))
-    gpu.set(10, 6, string.format("EU Input:         %i", average_input))
-    gpu.set(10, 7, string.format("EU Output:        %i", average_output))
+    gpu.set(10, 5, string.format("Total Capacity:   %i", stored_EU))
+    gpu.set(10, 6, string.format("Stored Capacity:  %i", totalCap_EU))
+    gpu.set(10, 8, string.format("EU Input:         %i", average_input))
+    gpu.set(10, 9, string.format("EU Output:        %i", average_output))
 
-    gpu.set(10, 8, string.format("Net EU: %i", average_input-average_output))
+    gpu.set(10, 11, string.format("Net EU: %i", average_input-average_output))
     
 end
+
+
+
+
+
 
 --runtime
 
