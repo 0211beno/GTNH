@@ -2,6 +2,7 @@ local serialization = require("serialization")
 local component = require("component")
 local event = require("event")
 local colors = require("colors")
+local term = require("term")
 
 local gpu = component.gpu
 local modem = component.modem
@@ -26,17 +27,18 @@ function draw_screen(totalCap_EU, stored_EU, average_output, average_input)
     gpu.setForeground(colors.green, true)
     gpu.fill(10, 15, 60*fullFrac, 5, "|") -- Draws filled part of power bar
     gpu.setForeground(colors.white, true)
-    gpu.set(10, 3, string.format("Total Capacity: %i", stored_EU))
+    gpu.set(10, 3, string.format("Total Capacity:  %i", stored_EU))
     gpu.set(10, 4, string.format("Stored Capacity: %i", totalCap_EU))
-    gpu.set(10, 5, string.format("EU Input: %i", average_input))
-    gpu.set(10, 6, string.format("EU Output: %i", average_output))
+    gpu.set(10, 5, string.format("EU Input:        %i", average_input))
+    gpu.set(10, 6, string.format("EU Output:       %i", average_output))
 
     gpu.set(10, 7, string.format("Net EU: %i", average_input-average_output))
     
 end
 
+--runtime
 
-
+term.clear()
 while true do
     modem.send(server_address, server_port, modem.address, recive_port)
 
