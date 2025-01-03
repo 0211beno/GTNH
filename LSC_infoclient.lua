@@ -6,6 +6,8 @@ local term = require("term")
 
 local gpu = component.gpu
 local modem = component.modem
+local internet = component.internet
+
 
 
 local recive_port = 1100
@@ -46,7 +48,8 @@ end
 
 
 --runtime
-
+local count = 0
+local rollingAverageSum = 0
 term.clear()
 while true do
     modem.send(server_address, server_port, modem.address, recive_port)
@@ -64,6 +67,18 @@ while true do
     --print(string.format("Average Input EU: %i", message["input_Average"]))
     --print(string.format("Total Capacity EU: %i", message["capacity"]))
 
+
+    rollingAverageSum = rollingAverageSum + message["output_Average"]
+    count = count + 1
+    if count > 11 then
+        count = 0
+        
+        local averageEU = rollingAverageSum/12
+        internet.request(string.format("https://gtnh.0211beno.org/energy/add/%i", averageEU))
+        rollingAverageSum = 0
+
+
+    end
 
     os.sleep(5)
 end
